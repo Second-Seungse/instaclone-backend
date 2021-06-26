@@ -7,7 +7,9 @@
     "dev": "nodemon --exec ts-node ./src/server --ext ts,js --delay 2",
     "build": "tsc",
     "start": "node ./dist/server.js",
-    "prod": "npm run build && npm run start"
+    "prod": "npm run build && npm run start",
+    "migrate": "npx prisma migrate dev",
+    "studio": "npx prisma studio"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
   },
   "devDependencies": {
     "@prisma/client": "^2.25.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.12",
     "@types/morgan": "^1.9.2",
     "@types/node": "^15.12.4",

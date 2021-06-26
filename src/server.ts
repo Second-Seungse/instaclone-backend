@@ -3,44 +3,10 @@ import http from "http";
 import express from "express";
 import logger from "morgan";
 import fs from "fs";
-import { ApolloServer, gql } from "apollo-server-express";
-
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
-
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
-`;
-
-const books = [
-  {
-    title: "Harry Potter and the Chamber of Secrets",
-    author: "J.K. Rowling",
-  },
-  {
-    title: "Jurassic Park",
-    author: "Michael Crichton",
-  },
-];
-
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
-};
+import { ApolloServer } from "apollo-server-express";
+import { typeDefs, resolvers } from "./schema";
+import { getUser } from "./users/users.utils";
+import client from "./client";
 
 const PORT = process.env.PORT;
 const index = fs.readFileSync("index.html");
@@ -49,6 +15,39 @@ const apollo = new ApolloServer({
   resolvers,
   playground: true,
   introspection: true,
+  context: async (ctx) => {
+    if (ctx.req) {
+      // * http
+      return {
+        client,
+        loggedInUser: await getUser(ctx.req.headers.token),
+      };
+    } else {
+      // * websocket
+      const {
+        connection: { context },
+      } = ctx;
+      return {
+        loggedInUser: context.loggedInUser,
+      };
+    }
+  },
+  subscriptions: {
+    /**
+     * @param {Object} connectionParams An object containing parameters included in the request, such as an authentication token.
+     * @param {webSocket} webSocket The connecting or disconnecting WebSocket.
+     * @param {ConnectionContext} context Context object for the WebSocket connection. This is not the context object for the associated subscription operation.
+     */
+    onConnect: async (token) => {
+      if (!token) {
+        throw new Error("You can't listen.");
+      }
+      const loggedInUser = await getUser(token);
+      return {
+        loggedInUser,
+      };
+    },
+  },
 });
 const app = express();
 app.get("/", (req, res) => {
