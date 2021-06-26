@@ -1,3 +1,4 @@
+require("dotenv").config();
 import http from "http";
 import express from "express";
 import logger from "morgan";
@@ -41,7 +42,7 @@ const resolvers = {
   },
 };
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 const index = fs.readFileSync("index.html");
 const apollo = new ApolloServer({
   typeDefs,
