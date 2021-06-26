@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec ts-node ./src/server --ext ts,js --delay 2",
     "build": "tsc",
-    "start": "node ./dist/server.js",
+    "start": "npm install @prisma/client && node ./dist/server.js",
     "prod": "npm run build && npm run start",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio"
