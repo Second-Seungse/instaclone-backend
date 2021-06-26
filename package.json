@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/SeungseOh/instaclone-backend#readme",
   "dependencies": {
+    "@prisma/client": "^2.25.0",
     "apollo-server": "^2.25.2",
     "apollo-server-express": "^2.25.2",
     "aws-sdk": "^2.934.0",
@@ -36,7 +37,6 @@
     "prisma": "^2.25.0"
   },
   "devDependencies": {
-    "@prisma/client": "^2.25.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.12",
     "@types/morgan": "^1.9.2",
