@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { Resolvers } from "../../types";
 
 const resolver: Resolvers = {

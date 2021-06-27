@@ -1,5 +1,5 @@
 import { Resolvers } from "../../types";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const resolver: Resolvers = {

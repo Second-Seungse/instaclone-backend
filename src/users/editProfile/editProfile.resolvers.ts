@@ -1,5 +1,5 @@
 // import { createWriteStream } from "fs";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { protectedResolver } from "../users.utils";
 import { uploadToS3, deleteFromS3 } from "../../shared/shared.utils";
 import { Resolvers } from "../../types";
