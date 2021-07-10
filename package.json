@@ -4,12 +4,10 @@
   "description": "This is my instaclone-backend project",
   "main": "server.ts",
   "scripts": {
-    "dev": "nodemon --exec ts-node ./src/server --ext ts,js --delay 2",
-    "build": "tsc",
-    "start": "node ./build/server.js",
-    "prod": "npm run build && npm run start",
-    "migrate": "npx prisma migrate dev --preview-feature",
-    "studio": "npx prisma studio"
+    "build": "tsc -p .",
+    "start": "node build/server.js",
+    "dev": "nodemon -L src/server.ts",
+    "mig": "npx prisma migrate dev --preview-feature"
   },
   "repository": {
     "type": "git",

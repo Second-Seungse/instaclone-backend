@@ -107,3 +107,6 @@ build/
 
 # Zip files
 *.Zip
+
+# Postgres
+pgdata

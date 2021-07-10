@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  # app
+  instaclone-app:
+    build: .
+    depends_on:
+      - postgres
+  # db
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - .:/var/lib/postgresql/data
