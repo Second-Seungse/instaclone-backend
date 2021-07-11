@@ -1,11 +1,28 @@
 version: "3"
 
 services: 
-  node-app:
+  instaclone-app:
     build: 
-        context: .
-        args: 
-          NODE_ENV: production
+      context: .
+      args: 
+        NODE_ENV: production
+        DISTANCE: build
+    ports:
+      - "4000:4000" # node app
+      - "5555:5555" # prisma studio
     environment: 
       - NODE_ENV=production
-    command: npm run start
+      - PORT=4000
+      - DATABASE_URL=postgresql://pgadmin:pg12345@postgres:5432
+      - SECRET_KEY=DnRT21YWsoAMsRUDep8VDjcQlGQtLxY9
+      - AWS_KEY=AKIAVJY3TDJNHNG3XNMB
+      - AWS_SECRET=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
+      - AWS_BUCKET=my-instaclone-uploads
+      - AWS_REGION=ap-northeast-2
+    command: bash -c "npx prisma studio | npm run start" 
+  postgres:
+    environment: 
+      - POSTGRES_USER=pgadmin
+      - POSTGRES_PASSWORD=pg12345
+      - POSTGRES_DB=instaclone
+      - PGDATA=/var/lib/postgresql/data/pgdata

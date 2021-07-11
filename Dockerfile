@@ -1,8 +1,10 @@
 FROM node:15
 
-WORKDIR /home/node/app
+WORKDIR /app
 
 ARG NODE_ENV
+
+ARG DISTANCE
 
 COPY package*.json ./
 
@@ -11,12 +13,16 @@ RUN if [ "$NODE_ENV" = "development" ]; \
     else npm install --only=production; \
     fi
 
-COPY . .
+COPY ${DISTANCE} dist/
+
+COPY prisma prisma/
+
+COPY tsconfig.json ./
+
+COPY nodemon.json ./
+
+COPY index.html ./
 
 RUN npx prisma generate
-
-RUN if [ "$NODE_ENV" = "production" ]; \
-    then npm run build; \
-    fi
 
 EXPOSE 4000

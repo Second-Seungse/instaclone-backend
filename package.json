@@ -5,8 +5,8 @@
   "main": "server.ts",
   "scripts": {
     "build": "tsc -p .",
-    "start": "node build/server.js",
-    "dev": "nodemon -L src/server.ts",
+    "start": "node dist/server.js",
+    "dev": "nodemon -L dist/server.ts",
     "mig": "npx prisma migrate dev --preview-feature"
   },
   "repository": {
