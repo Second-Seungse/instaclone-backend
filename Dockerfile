@@ -1,10 +1,12 @@
 FROM node:15
 
-WORKDIR /app
-
 ARG NODE_ENV
 
 ARG DISTANCE
+
+ARG WORKDIR
+
+WORKDIR ${WORKDIR}
 
 COPY package*.json ./
 

@@ -2,10 +2,12 @@ version: "3"
 
 services: 
   instaclone-app:
+    image: devohss/instaclone-backend
     build: 
       context: .
       args: 
         NODE_ENV: production
+        WORKDIR: /home/node/app
         DISTANCE: build
     ports:
       - "4000:4000" # node app

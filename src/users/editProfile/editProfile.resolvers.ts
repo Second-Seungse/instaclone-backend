@@ -50,7 +50,9 @@ const resolver: Resolvers = {
           if (avatar) {
             // avatarUrl = await s3Uploader.singleFileUploadResolver(_, avatar);
             avatarUrl = await uploadToS3(avatar, loggedInUser.id, "avatars");
-            await deleteFromS3(user.avatar);
+            if (user.avatar) {
+              await deleteFromS3(user.avatar);
+            }
             /**
              * * 서버내부에 파일을 저장하는 Stream
             const { filename, createReadStream } = await avatar;
