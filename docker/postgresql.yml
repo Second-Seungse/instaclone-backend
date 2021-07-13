@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - .:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=pgadmin
+      - POSTGRES_PASSWORD=pgadmin12345
+      - POSTGRES_DB=instaclone
+      - PGDATA=/var/lib/postgresql/data/pgdata

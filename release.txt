@@ -1,0 +1,17 @@
+1. Transpile TypeScript into JavaScript
+npm run build
+
+2. Build Docker image
+docker-compose -f docker-compose.prod.yml build
+
+3. Push Docker image into Dockerhub
+docker-compose -f docker-compose.prod.yml push
+
+4. Upload Docker compose file into release server
+
+5. Pull Docker image into release server from Dockerhub
+docker-compose -f docker-compose.prod.yml pull
+
+6. Run Docker image
+docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker-compose.prod.yml down -v

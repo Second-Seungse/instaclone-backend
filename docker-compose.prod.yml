@@ -3,8 +3,10 @@ version: "3"
 services: 
   instaclone-app:
     image: devohss/instaclone-backend
+    restart: always
     build: 
       context: .
+      dockerfile: Dockerfile
       args: 
         NODE_ENV: production
         WORKDIR: /home/node/app
@@ -15,16 +17,10 @@ services:
     environment: 
       - NODE_ENV=production
       - PORT=4000
-      - DATABASE_URL=postgresql://pgadmin:pg12345@postgres:5432
+      - DATABASE_URL=postgresql://pgadmin:pgadmin12345@instaclone-postgres.cc8bmldzeb01.ap-northeast-2.rds.amazonaws.com:5432/instaclone-postgres?schema=public
       - SECRET_KEY=DnRT21YWsoAMsRUDep8VDjcQlGQtLxY9
       - AWS_KEY=AKIAVJY3TDJNHNG3XNMB
       - AWS_SECRET=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
       - AWS_BUCKET=my-instaclone-uploads
       - AWS_REGION=ap-northeast-2
-    command: bash -c "npx prisma studio | npm run start" 
-  postgres:
-    environment: 
-      - POSTGRES_USER=pgadmin
-      - POSTGRES_PASSWORD=pg12345
-      - POSTGRES_DB=instaclone
-      - PGDATA=/var/lib/postgresql/data/pgdata
+    command: bash -c "npx prisma studio | npm run start"
