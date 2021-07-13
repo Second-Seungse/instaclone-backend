@@ -34,6 +34,7 @@ export const uploadToS3 = async (file, userId, folderName) => {
         }
       )
       .promise();
+      console.log(`Uploaded File: ${objectName}`);
     return Location;
   } catch (e) {
     return e;
@@ -62,6 +63,7 @@ export const deleteFromS3 = async (fileUrl) => {
         }
       )
       .promise();
+    console.log(`Deleted File: ${objectName}`);
   } catch (e) {
     console.log(e);
     return e;

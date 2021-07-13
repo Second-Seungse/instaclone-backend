@@ -12,8 +12,9 @@ export type Resolver = (
   context: Context,
   info: any
 ) => any;
+
 export type Resolvers = {
-  [key: string]: {
+  [key: object]: {
     [key: string]: Resolver;
   };
 };

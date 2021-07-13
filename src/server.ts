@@ -7,12 +7,14 @@ import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./users/users.utils";
 import client from "./client";
+import { graphqlUploadExpress } from "graphql-upload";
 
 const PORT = process.env.PORT;
 const index = fs.readFileSync("index.html");
 const apollo = new ApolloServer({
   typeDefs,
   resolvers,
+  uploads: false,
   playground: true,
   introspection: true,
   context: async (ctx) => {
@@ -59,6 +61,7 @@ app.get("/", (req, res) => {
 });
 app.use(logger("tiny"));
 app.use("/static", express.static("uploads"));
+app.use(graphqlUploadExpress());
 apollo.applyMiddleware({ app });
 
 const httpServer = http.createServer(app);
